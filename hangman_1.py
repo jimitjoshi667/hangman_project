@@ -125,19 +125,22 @@ def printhangman(l):
 
 
 def game():
-
+    global user_inputs
     global chances 
     global placeholder
     global gamefinish
     if chances!=0 and placeholder!=chosen_word:
         print("word is:", placeholder)
         print("you have",chances,"chances")
+        if user_inputs!=[]:
+            print("your previous guesses are:", user_inputs)
         i = input("enter your guess letter: ")
         
         check(i)
         printhangman(chances)
         return False
     else:
+
         if chances == 0:
             print("you lost")
             print("the word was:", chosen_word)
@@ -161,6 +164,8 @@ def check(n):
     if n==chosen_word:
         print("correct guess")
         placeholder = chosen_word
+    elif n in user_inputs:
+        print("you have already guessed this letter")
 
     elif n in chosen_word:
         user_inputs.append(n)        
@@ -187,14 +192,14 @@ def menu(z):
     global gamefinish
     global placeholder
     if z==1:
-        m = input("Do you want to play hangman? enter y/yes or n/no").lower()
+        m = input("Do you want to play hangman? enter y/yes or n/no : " ).lower()
         
     else:
-        m = input("do you want to play again").lower()
+        m = input("do you want to play again? enter y/yes or n/no : " ).lower()
 
     if m=="y" or m=="yes":
         
-        chosen_word = random.choice(word_list) 
+        chosen_word= random.choice(word_list) 
         #global chances
         chances = 6
 
